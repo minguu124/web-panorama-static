@@ -1,17 +1,16 @@
 <template>
   <div id="app">
-    <!-- <PanoramaViewer /> -->
-    hi
+    <PanoramaViewer />
   </div>
 </template>
 
 <script>
-// import PanoramaViewer from "./components/PanoramaViewer.vue";
+import PanoramaViewer from "./components/PanoramaViewer.vue";
 
 export default {
   name: "App",
   components: {
-    // PanoramaViewer,
+    PanoramaViewer,
   },
 };
 </script>
