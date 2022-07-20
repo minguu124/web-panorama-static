@@ -53,7 +53,7 @@ export default {
   mounted() {
     this.viewer = new Viewer({
       container: document.querySelector("#viewer"),
-      panorama: "assets/panorama/default.jpg",
+      panorama: "assets/panorama/tong.jpg",
       plugins: [],
     });
 
