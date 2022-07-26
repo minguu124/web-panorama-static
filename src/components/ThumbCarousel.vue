@@ -24,14 +24,16 @@
 <script>
 export default {
   props: {
-    items: [],
+    items: Array,
     selected: Object,
     onChange: Function,
   },
   data() {
-    this.slider = undefined;
-    this.carousel = {
-      isDown: false,
+    return {
+      slider: undefined,
+      carousel: {
+        isDown: false,
+      },
     };
   },
   mounted() {

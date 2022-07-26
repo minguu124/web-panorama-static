@@ -1,9 +1,9 @@
 <template>
   <div class="navbar">
     <ThumbCarousel
-      :items="this.selectedGroup.items"
-      :selected="this.selectedImage"
-      :onChange="this.onChangeImage"
+      :items="this.currentGroup.items"
+      :selected="this.currentView"
+      :onChange="this.onChangeView"
     />
     <div class="action">
       <button @click="this.onFullscreen" class="btn">
@@ -15,11 +15,11 @@
       <div style="flex: 1; justify-content: space-around">
         <button
           class="menu_button"
-          v-for="value in data"
-          :key="value.label"
-          v-on:click="items = value.data"
+          v-for="item in data"
+          :key="item.label"
+          v-on:click="onChangeGroup(item)"
         >
-          {{ value.label }}
+          {{ item.label }}
         </button>
       </div>
       <button @click="handleExpand" class="btn">
@@ -47,16 +47,17 @@ export default {
       this.onChangeImageAction(value);
     },
   },
+  watch() {},
   data() {
-    return {
-      selectedGroup: this.data["tong_quan"],
-      selectedImage: this.data["tong_quan"].items[0]["360img"],
-    };
+    return {};
   },
   props: {
     data: Object,
     onFullscreen: Function,
-    onChangeImageAction: Function,
+    currentGroup: Object,
+    currentView: Object,
+    onChangeGroup: Function,
+    onChangeView: Function,
   },
   mounted() {},
 };
@@ -73,6 +74,7 @@ export default {
   left: 50%;
   transform: translate(-50%);
   flex-direction: column;
+  z-index: 1000;
 }
 
 .btn {

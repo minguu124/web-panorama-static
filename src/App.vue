@@ -7,11 +7,18 @@
     />
   </head>
   <div id="app">
-    <PanoramaViewer ref="panoramaViewer" :currentView="this.selectedView" />
+    <PanoramaViewer
+      ref="panoramaViewer"
+      :currentView="this.selectedView"
+      :onHotspotClick="this.onHotspotClick"
+    />
     <ActionController
       :data="this.data"
+      :currentGroup="this.selectedGroup"
+      :currentView="this.selectedView"
+      :onChangeGroup="this.onChangeGroup"
+      :onChangeView="this.onChangeView"
       :onFullscreen="this.onFullscreen"
-      :onChangeImageAction="this.onChangeImageAction"
     />
   </div>
 </template>
@@ -28,14 +35,28 @@ export default {
     ActionController,
   },
   methods: {
-    onChangeImageAction(value) {
-      this.$refs.panoramaViewer.viewer.setPanorama(value["img360"]);
+    onChangeGroup(group) {
+      this.selectedGroup = group;
+    },
+
+    onChangeView(view) {
+      this.selectedView = view;
+    },
+
+    onHotspotClick(id) {
+      console.log(id);
+      const items = JSON.parse(JSON.stringify(this.selectedGroup.items));
+      const selected = items.find((x) => x.id === id);
+      if (selected) {
+        this.selectedView = selected;
+      }
     },
   },
   data() {
     return {
       data: DATA,
-      selectedView: DATA["tong_quan"].items[0].img360,
+      selectedGroup: DATA["tong_quan"],
+      selectedView: DATA["tong_quan"].items[0],
     };
   },
   mounted() {
@@ -50,8 +71,11 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+html,
 body {
   margin: 0 !important;
+  width: 100vw;
+  height: 100vh;
 }
 div {
   display: flex;
